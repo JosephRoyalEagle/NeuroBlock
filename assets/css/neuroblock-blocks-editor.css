@@ -1,0 +1,103 @@
+
+
+.neuroblock-block-editor {
+    padding: 20px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    min-height: 200px;
+    background: white;
+}
+
+.neuroblock-placeholder {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.neuroblock-placeholder-icon {
+    margin: 0 auto 20px;
+    width: 48px;
+    height: 48px;
+    color: #8b5cf6;
+}
+
+.neuroblock-placeholder h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.3rem;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.neuroblock-placeholder p {
+    margin: 0 0 20px 0;
+    color: #64748b;
+}
+
+.neuroblock-content-editable {
+    min-height: 100px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.neuroblock-sidebar {
+    padding: 16px;
+}
+
+.neuroblock-sidebar p {
+    margin-bottom: 12px;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.neuroblock-generate-btn {
+    width: 100%;
+}
+
+
+/* ============= assets/css/neuroblock-blocks.css ============= */
+
+.neuroblock-ai-content {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.neuroblock-ai-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.neuroblock-ai-content h1,
+.neuroblock-ai-content h2,
+.neuroblock-ai-content h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.neuroblock-ai-content p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+.neuroblock-ai-content ul,
+.neuroblock-ai-content ol {
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+.neuroblock-ai-content a {
+    color: #8b5cf6;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.neuroblock-ai-content a:hover {
+    color: #6d28d9;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .neuroblock-ai-content {
+        padding: 15px;
+    }
+}
