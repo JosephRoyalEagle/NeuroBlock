@@ -247,21 +247,21 @@ if (!defined('ABSPATH')) exit;
                         <h3 class="neuroblock-crypto-name">Bitcoin (BTC)</h3>
                         <span class="neuroblock-crypto-badge"><?php _e('Recommended', 'neuroblock'); ?></span>
                     </div>
-                    <code class="neuroblock-crypto-address">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+                    <code class="neuroblock-crypto-address">bc1qxlk60lzk5uxk8qlvdzv8qtdndhxkzj5z48vd9q</code>
                 </div>
                 
                 <div class="neuroblock-crypto-box" style="cursor: pointer;">
                     <div class="neuroblock-crypto-header">
                         <h3 class="neuroblock-crypto-name">Monero (XMR)</h3>
                     </div>
-                    <code class="neuroblock-crypto-address">4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRj5UzqtReoS44qo9mtmXCqY45DJ852K5Jv2684Rge</code>
+                    <code class="neuroblock-crypto-address">4BGPRrrZvAi8hqKVHfM5pi2MGwTFfBqeXQe8WuUp94QRdxanQfd8FxCCsY9XqQgHwaCoGNLrSokz6KXWVZWPELVLAZ9tYG7</code>
                 </div>
                 
                 <div class="neuroblock-crypto-box" style="cursor: pointer;">
                     <div class="neuroblock-crypto-header">
                         <h3 class="neuroblock-crypto-name">Tether (USDT)</h3>
                     </div>
-                    <code class="neuroblock-crypto-address">0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb5</code>
+                    <code class="neuroblock-crypto-address">TCY64QwdZjQV4WEn91EuoBUoZnpzPvCboF</code>
                 </div>
                 
                 <div style="text-align: center; margin-top: 24px; color: #64748b;">

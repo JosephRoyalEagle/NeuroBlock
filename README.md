@@ -310,17 +310,17 @@ NeuroBlock is **free and open source**. If you find this plugin useful, you can 
 
 **Bitcoin (BTC)** - Recommended
 ```
-bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+bc1qxlk60lzk5uxk8qlvdzv8qtdndhxkzj5z48vd9q
 ```
 
 **Monero (XMR)**
 ```
-4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRj5UzqtReoS44qo9mtmXCqY45DJ852K5Jv2684Rge
+4BGPRrrZvAi8hqKVHfM5pi2MGwTFfBqeXQe8WuUp94QRdxanQfd8FxCCsY9XqQgHwaCoGNLrSokz6KXWVZWPELVLAZ9tYG7
 ```
 
 **Tether (USDT)**
 ```
-0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb5
+TCY64QwdZjQV4WEn91EuoBUoZnpzPvCboF
 ```
 
 ---
