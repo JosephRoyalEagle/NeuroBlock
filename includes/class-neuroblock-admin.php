@@ -362,7 +362,8 @@ class NeuroBlock_Admin {
                                     <select name="type" class="neuroblock-select">
                                         <option value="block">Bloc Gutenberg</option>
                                         <option value="elementor">Widget Elementor</option>
-                                        <option value="page">Page complète</option>
+                                        <option value="page-elementor">Page complète Elementor</option>
+                                        <option value="page-gutenberg">Page complète Gutenberg</option>
                                     </select>
                                 </div>
                                 <div class="neuroblock-form-group">
@@ -372,6 +373,8 @@ class NeuroBlock_Admin {
                                         <option value="minimal">Minimaliste</option>
                                         <option value="professional">Professionnel</option>
                                         <option value="creative">Créatif</option>
+                                        <option value="elegant">Élégant</option>
+                                        <option value="classic">Classique</option>
                                     </select>
                                 </div>
                             </div>
