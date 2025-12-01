@@ -14,7 +14,7 @@ jQuery(document).ready(function($) {
         $('#tab-' + tabId).show();
     });
     
-    // Provider models mapping (removed Ollama, added Mistral)
+    // Provider models mapping
     const providerModels = {
         openai: ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-turbo'],
         deepseek: ['deepseek-chat', 'deepseek-coder'],
