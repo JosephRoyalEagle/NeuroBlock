@@ -398,7 +398,7 @@ See [LICENSE](LICENSE) file for details.
 ## 🔗 Useful Links
 
 - **Website**: https://starlightproagency.com
-- **Support**: contact@starlightproagency.com
+- **Support**: info@starlightproagency.com
 - **Documentation**: See DEPLOYMENT.md for deployment guide
 - **Quick Start**: See QUICK-START.md for 5-minute setup
 - **Testing**: See TEST-CHECKLIST.md for complete testing
