@@ -173,9 +173,6 @@ msgstr "Bloc généré avec succès ! Cliquez sur le bouton copier ci-dessous po
 msgid "Page created successfully!"
 msgstr "Page créée avec succès !"
 
-msgid "Content generated successfully!"
-msgstr "Contenu généré avec succès !"
-
 msgid "View Page"
 msgstr "Voir la page"
 
