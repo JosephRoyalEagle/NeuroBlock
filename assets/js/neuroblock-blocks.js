@@ -1,142 +1,245 @@
-(function(wp) {
-    const { registerBlockType } = wp.blocks;
-    const { RichText, InspectorControls } = wp.blockEditor;
-    const { PanelBody, TextareaControl, Button } = wp.components;
-    const { createElement: el, Fragment } = wp.element;
-    const { __ } = wp.i18n;
-
-    registerBlockType('neuroblock/ai-content', {
-        title: __('NeuroBlock AI Content', 'neuroblock'),
-        description: __('Bloc généré par intelligence artificielle', 'neuroblock'),
-        icon: {
-            src: el('svg', 
-                { 
-                    width: 24, 
-                    height: 24, 
-                    viewBox: '0 0 24 24',
-                    xmlns: 'http://www.w3.org/2000/svg'
-                },
-                el('path', {
-                    d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h2v2H7v-2zm8 0h-2v2h2v-2zm0 4h-2v2h2v-2zm-4 0h-2v2h2v-2zm4-8h-2v2h2V7zM7 7h2v2H7V7z',
-                    fill: 'currentColor'
-                })
-            ),
-            foreground: '#8b5cf6'
-        },
-        category: 'common',
-        keywords: ['ai', 'neuroblock', 'intelligence', 'artificielle'],
-        attributes: {
-            content: {
-                type: 'string',
-                default: ''
-            },
-            generatedBy: {
-                type: 'string',
-                default: 'neuroblock'
-            }
-        },
+jQuery(document).ready(function($) {
+    'use strict';
+    
+    // Tab navigation
+    $('.neuroblock-tab').on('click', function() {
+        const tabId = $(this).data('tab');
         
-        edit: function(props) {
-            const { attributes, setAttributes, className } = props;
-            const { content } = attributes;
-
-            function onChangeContent(newContent) {
-                setAttributes({ content: newContent });
-            }
-
-            function generateWithAI() {
-                // Open NeuroBlock admin page in new tab
-                window.open(
-                    ajaxurl.replace('admin-ajax.php', 'admin.php?page=neuroblock'),
-                    '_blank'
-                );
-            }
-
-            return el(
-                Fragment,
-                {},
-                el(
-                    InspectorControls,
-                    {},
-                    el(
-                        PanelBody,
-                        { title: __('NeuroBlock Settings', 'neuroblock') },
-                        el(
-                            'div',
-                            { className: 'neuroblock-sidebar' },
-                            el('p', {}, __('Générez du contenu IA depuis le panneau NeuroBlock', 'neuroblock')),
-                            el(
-                                Button,
-                                {
-                                    isPrimary: true,
-                                    onClick: generateWithAI,
-                                    className: 'neuroblock-generate-btn'
-                                },
-                                __('Ouvrir NeuroBlock', 'neuroblock')
-                            )
-                        )
-                    )
-                ),
-                el(
-                    'div',
-                    { className: className + ' neuroblock-block-editor' },
-                    content ? 
-                        el(RichText, {
-                            tagName: 'div',
-                            value: content,
-                            onChange: onChangeContent,
-                            placeholder: __('Contenu généré par IA...', 'neuroblock'),
-                            className: 'neuroblock-content-editable'
-                        })
-                    :
-                        el(
-                            'div',
-                            { className: 'neuroblock-placeholder' },
-                            el(
-                                'div',
-                                { className: 'neuroblock-placeholder-icon' },
-                                el('svg', 
-                                    { 
-                                        width: 48, 
-                                        height: 48, 
-                                        viewBox: '0 0 24 24',
-                                        fill: 'none',
-                                        stroke: 'currentColor',
-                                        strokeWidth: 2
-                                    },
-                                    el('path', {
-                                        d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h2v2H7v-2zm8 0h-2v2h2v-2zm0 4h-2v2h2v-2zm-4 0h-2v2h2v-2zm4-8h-2v2h2V7zM7 7h2v2H7V7z'
-                                    })
-                                )
-                            ),
-                            el('h3', {}, __('Bloc NeuroBlock AI', 'neuroblock')),
-                            el('p', {}, __('Générez du contenu avec l\'intelligence artificielle', 'neuroblock')),
-                            el(
-                                Button,
-                                {
-                                    isPrimary: true,
-                                    onClick: generateWithAI
-                                },
-                                __('Générer avec IA', 'neuroblock')
-                            )
-                        )
-                )
-            );
-        },
-
-        save: function(props) {
-            const { attributes } = props;
-            const { content } = attributes;
-
-            return el(
-                'div',
-                { className: 'neuroblock-ai-content' },
-                el(RichText.Content, {
-                    tagName: 'div',
-                    value: content
-                })
-            );
-        }
+        // Update active tab
+        $('.neuroblock-tab').removeClass('active');
+        $(this).addClass('active');
+        
+        // Show corresponding panel
+        $('.neuroblock-tab-panel').hide();
+        $('#tab-' + tabId).show();
     });
-
-})(window.wp);
+    
+    // Provider models mapping (removed Ollama, added Mistral)
+    const providerModels = {
+        openai: ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-turbo'],
+        deepseek: ['deepseek-chat', 'deepseek-coder'],
+        gemini: ['gemini-pro', 'gemini-ultra'],
+        mistral: ['mistral-small', 'mistral-medium', 'mistral-large']
+    };
+    
+    // Update models when provider changes
+    $('#nb-provider').on('change', function() {
+        const provider = $(this).val();
+        const models = providerModels[provider] || [];
+        const $modelSelect = $('#nb-model');
+        
+        $modelSelect.empty();
+        models.forEach(function(model) {
+            $modelSelect.append(
+                $('<option></option>').val(model).text(model)
+            );
+        });
+    });
+    
+    // Settings form submission
+    $('#neuroblock-settings-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const $form = $(this);
+        const $button = $form.find('button[type="submit"]');
+        const buttonText = $button.html();
+        
+        // Show loading state
+        $button.prop('disabled', true).html(
+            '<span class="neuroblock-spinner"></span> ' + neuroblock.strings.saving
+        );
+        
+        const formData = {
+            action: 'neuroblock_save_settings',
+            nonce: neuroblock.nonce,
+            provider: $form.find('select[name="provider"]').val(),
+            api_key: $form.find('input[name="api_key"]').val(),
+            model: $form.find('select[name="model"]').val()
+        };
+        
+        $.post(neuroblock.ajax_url, formData, function(response) {
+            if (response.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: neuroblock.strings.success,
+                    text: neuroblock.strings.saved,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                // Clear API key field for security
+                $form.find('input[name="api_key"]').val('');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: neuroblock.strings.error,
+                    text: response.data.message || neuroblock.strings.error
+                });
+            }
+        }).fail(function() {
+            Swal.fire({
+                icon: 'error',
+                title: neuroblock.strings.error,
+                text: neuroblock.strings.error
+            });
+        }).always(function() {
+            $button.prop('disabled', false).html(buttonText);
+        });
+    });
+    
+    // Generator form submission
+    $('#neuroblock-generator-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const $form = $(this);
+        const $button = $form.find('button[type="submit"]');
+        const $output = $('#generated-output');
+        const $code = $('#generated-code');
+        
+        const prompt = $form.find('textarea[name="prompt"]').val().trim();
+        const type = $form.find('select[name="type"]').val();
+        
+        if (!prompt) {
+            Swal.fire({
+                icon: 'warning',
+                title: neuroblock.strings.warning,
+                text: neuroblock.strings.promptRequired
+            });
+            return;
+        }
+        
+        // Check if Gutenberg or Elementor is required and available
+        if ((type === 'page-gutenberg' || type === 'block') && !neuroblock.hasGutenberg) {
+            Swal.fire({
+                icon: 'error',
+                title: neuroblock.strings.error,
+                text: neuroblock.strings.gutenbergRequired
+            });
+            return;
+        }
+        
+        if ((type === 'page-elementor' || type === 'elementor') && !neuroblock.hasElementor) {
+            Swal.fire({
+                icon: 'error',
+                title: neuroblock.strings.error,
+                text: neuroblock.strings.elementorRequired
+            });
+            return;
+        }
+        
+        // Show loading with SweetAlert
+        Swal.fire({
+            title: neuroblock.strings.generating,
+            html: neuroblock.strings.pleaseWait,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        
+        $output.hide();
+        
+        const formData = {
+            action: 'neuroblock_generate',
+            nonce: neuroblock.nonce,
+            prompt: prompt,
+            type: type,
+            style: $form.find('select[name="style"]').val()
+        };
+        
+        $.post(neuroblock.ajax_url, formData, function(response) {
+            Swal.close();
+            
+            if (response.success) {
+                $code.val(response.data.content);
+                $output.slideDown();
+                
+                // Show success with copy button info for blocks
+                if (type === 'block' || type === 'elementor') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: neuroblock.strings.success,
+                        text: neuroblock.strings.blockGenerated,
+                        confirmButtonText: neuroblock.strings.ok
+                    });
+                } else {
+                    // For complete pages, show page created message
+                    Swal.fire({
+                        icon: 'success',
+                        title: neuroblock.strings.success,
+                        html: response.data.pageUrl 
+                            ? neuroblock.strings.pageCreated + '<br><a href="' + response.data.pageUrl + '" target="_blank">' + neuroblock.strings.viewPage + '</a>'
+                            : neuroblock.strings.contentGenerated,
+                        confirmButtonText: neuroblock.strings.ok
+                    });
+                }
+                
+                // Scroll to output
+                $('html, body').animate({
+                    scrollTop: $output.offset().top - 100
+                }, 500);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: neuroblock.strings.error,
+                    text: response.data.message || neuroblock.strings.error
+                });
+            }
+        }).fail(function() {
+            Swal.close();
+            Swal.fire({
+                icon: 'error',
+                title: neuroblock.strings.error,
+                text: neuroblock.strings.error
+            });
+        });
+    });
+    
+    // Copy code to clipboard with instructions
+    $(document).on('click', '.neuroblock-copy-code', function() {
+        const $code = $('#generated-code');
+        const type = $('#neuroblock-generator-form select[name="type"]').val();
+        
+        $code.select();
+        document.execCommand('copy');
+        
+        let instructions = '';
+        
+        if (type === 'block') {
+            instructions = neuroblock.strings.gutenbergInstructions;
+        } else if (type === 'elementor') {
+            instructions = neuroblock.strings.elementorInstructions;
+        }
+        
+        Swal.fire({
+            icon: 'success',
+            title: neuroblock.strings.copied,
+            html: instructions,
+            confirmButtonText: neuroblock.strings.ok
+        });
+    });
+    
+    // Copy crypto address
+    $(document).on('click', '.neuroblock-crypto-address', function() {
+        const address = $(this).text();
+        
+        // Create temporary input
+        const $temp = $('<input>');
+        $('body').append($temp);
+        $temp.val(address).select();
+        document.execCommand('copy');
+        $temp.remove();
+        
+        // Show SweetAlert with timer
+        Swal.fire({
+            icon: 'success',
+            title: neuroblock.strings.copied,
+            text: neuroblock.strings.addressCopied,
+            timer: 2000,
+            showConfirmButton: false
+        });
+    });
+    
+    console.log('NeuroBlock admin loaded successfully');
+});

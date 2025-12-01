@@ -3,7 +3,7 @@
  * Plugin Name: NeuroBlock
  * Copyright (C) 2025 Papyrus - Starlight Pro Agency
  * Plugin URI: https://starlightproagency.com/neuroblock
- * Description: Générateur IA pour créer des blocs Gutenberg et pages WordPress personnalisés avec votre propre API
+ * Description: AI-powered generator to create custom Gutenberg blocks and WordPress pages with your own API
  * Version: 1.0.0
  * Author: Papyrus - Starlight Pro Agency
  * Author URI: https://starlightproagency.com
@@ -49,7 +49,7 @@ function neuroblock_init() {
 add_action('plugins_loaded', 'neuroblock_init');
 
 /**
- * Activation hook
+ * Activation hook - Set up default plugin options
  */
 function neuroblock_activate() {
     // Create default options
@@ -72,7 +72,7 @@ function neuroblock_deactivate() {
 register_deactivation_hook(__FILE__, 'neuroblock_deactivate');
 
 /**
- * Uninstall hook
+ * Uninstall hook - Clean up plugin data
  */
 function neuroblock_uninstall() {
     // Delete options
