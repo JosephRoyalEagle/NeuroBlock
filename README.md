@@ -1,193 +1,314 @@
 # NeuroBlock 🧠
 
-**Extension WordPress IA pour générer des blocs et pages personnalisés**
+**AI-Powered WordPress Extension for Generating Custom Blocks and Pages**
 
 Version: 1.0.0  
-Auteur: Papyrus - Starlight Pro Agency  
+Author: Papyrus - Starlight Pro Agency  
 License: GPL v2 or later
 
 ---
 
 ## 📋 Description
 
-NeuroBlock est une extension WordPress moderne et puissante qui vous permet de générer automatiquement des pages et blocs personnalisés pour Gutenberg et Elementor à l'aide de modèles d'intelligence artificielle.
+NeuroBlock is a modern and powerful WordPress plugin that allows you to automatically generate custom pages and blocks for Gutenberg and Elementor using artificial intelligence models.
 
-### ✨ Caractéristiques principales
+### ✨ Key Features
 
-- 🎨 **Génération automatique de contenu** : Créez des blocs Gutenberg et widgets Elementor en quelques secondes
-- 🔒 **100% Sécurisé** : Vos clés API sont chiffrées avec les salts WordPress
-- 💰 **Totalement gratuit** : Utilisez votre propre API IA (pas de frais d'abonnement)
-- 🌐 **Multi-plateformes** : Compatible avec OpenAI, DeepSeek, Google Gemini, et Ollama (local)
-- 🎯 **Interface moderne** : Dashboard élégant et facile à utiliser
-- 🚀 **Optimisé** : Code léger et performant
+- 🎨 **Automatic Content Generation**: Create Gutenberg blocks and Elementor widgets in seconds
+- 🔒 **100% Secure**: Your API keys are encrypted with WordPress salts
+- 💰 **Completely Free**: Use your own AI API (no subscription fees)
+- 🌐 **Multi-Platform**: Compatible with OpenAI, DeepSeek, Google Gemini, and Mistral AI
+- 🎯 **Modern Interface**: Elegant and easy-to-use dashboard
+- 🚀 **Optimized**: Lightweight and performant code
+- 🌍 **Multilingual**: Available in English and French
 
 ---
 
 ## 🚀 Installation
 
-### Installation manuelle
+### Method 1: Manual Installation
 
-1. Téléchargez le fichier ZIP du plugin
-2. Allez dans **Extensions → Ajouter**
-3. Cliquez sur **Téléverser une extension**
-4. Sélectionnez le fichier ZIP et cliquez sur **Installer maintenant**
-5. Activez l'extension
+1. Download the plugin ZIP file
+2. Go to **Plugins → Add New**
+3. Click **Upload Plugin**
+4. Select the ZIP file and click **Install Now**
+5. Activate the plugin
 
-### Installation via FTP
+### Method 2: FTP Installation
 
-1. Décompressez le fichier ZIP
-2. Uploadez le dossier `neuroblock` dans `/wp-content/plugins/`
-3. Activez l'extension depuis le menu Extensions de WordPress
+1. Unzip the ZIP file
+2. Upload the `neuroblock` folder to `/wp-content/plugins/`
+3. Activate the plugin from the WordPress Plugins menu
 
 ---
 
 ## ⚙️ Configuration
 
-### 1. Obtenir une clé API
+### 1. Get an API Key
 
-#### OpenAI
-1. Créez un compte sur [platform.openai.com](https://platform.openai.com)
-2. Allez dans **API Keys**
-3. Créez une nouvelle clé secrète
-4. Copiez la clé (format: `sk-...`)
+#### OpenAI (Recommended)
+1. Create an account at [platform.openai.com](https://platform.openai.com)
+2. Go to **API Keys**
+3. Create a new secret key
+4. Copy the key (format: `sk-...`)
 
-#### DeepSeek
-1. Créez un compte sur [platform.deepseek.com](https://platform.deepseek.com)
-2. Générez une clé API
-3. Copiez la clé
+**Cost:** Pay-as-you-go (~$0.002 per generation)
+
+#### DeepSeek (Budget-Friendly)
+1. Create an account at [platform.deepseek.com](https://platform.deepseek.com)
+2. Generate an API key
+3. Copy the key
+
+**Cost:** Very affordable
 
 #### Google Gemini
-1. Créez un compte sur [makersuite.google.com](https://makersuite.google.com)
-2. Obtenez une clé API
-3. Copiez la clé
+1. Create an account at [makersuite.google.com](https://makersuite.google.com)
+2. Get an API key
+3. Copy the key
 
-#### Ollama (Local - GRATUIT)
-1. Installez [Ollama](https://ollama.ai) sur votre machine
-2. Téléchargez un modèle : `ollama pull llama2`
-3. Aucune clé API nécessaire !
+**Cost:** Free tier available
 
-### 2. Configurer NeuroBlock
+#### Mistral AI (European)
+1. Create an account at [console.mistral.ai](https://console.mistral.ai)
+2. Generate an API key
+3. Copy the key
 
-1. Allez dans **NeuroBlock** dans le menu WordPress
-2. Sélectionnez votre fournisseur IA
-3. Entrez votre clé API (sauf pour Ollama)
-4. Choisissez le modèle
-5. Cliquez sur **Enregistrer les paramètres**
+**Cost:** Competitive pricing
 
----
+### 2. Configure NeuroBlock
 
-## 🎯 Utilisation
-
-### Générer un bloc Gutenberg
-
-1. Allez dans l'onglet **Générateur**
-2. Décrivez ce que vous voulez créer
-3. Sélectionnez **Bloc Gutenberg** comme type
-4. Choisissez un style (Moderne, Minimaliste, etc.)
-5. Cliquez sur **Générer avec IA**
-6. Le code HTML/CSS est généré automatiquement
-7. Copiez-collez dans un bloc HTML personnalisé
-
-### Générer une page complète
-
-1. Allez dans l'onglet **Générateur**
-2. Décrivez votre page (ex: "Landing page pour une application mobile")
-3. Sélectionnez **Page complète**
-4. Générez et utilisez le code
-
-### Exemples de prompts
-
-**Bloc Hero Section:**
-```
-Créer une section hero moderne avec un titre accrocheur "Révolutionnez votre business", 
-un sous-titre, et un bouton CTA violet. Design minimaliste avec dégradé de fond.
-```
-
-**Pricing Table:**
-```
-Créer un tableau de prix avec 3 colonnes (Starter, Pro, Enterprise), 
-incluant les prix, listes de fonctionnalités, et boutons d'action. Style professionnel.
-```
-
-**Contact Form:**
-```
-Créer un formulaire de contact élégant avec champs nom, email, sujet et message. 
-Inclure validation visuelle et bouton d'envoi avec effet hover.
-```
+1. Go to **NeuroBlock** in the WordPress menu
+2. Select your AI provider
+3. Enter your API key
+4. Choose a model:
+   - **OpenAI:** gpt-4 (best quality) or gpt-3.5-turbo (faster)
+   - **DeepSeek:** deepseek-chat or deepseek-coder
+   - **Mistral:** mistral-large (best) or mistral-small (fast)
+   - **Gemini:** gemini-pro
+5. Click **Save Settings**
 
 ---
 
-## 📁 Structure des fichiers
+## 🎯 Usage
+
+### Generate a Gutenberg Block
+
+1. Go to the **Generator** tab
+2. Describe what you want to create
+3. Select **Gutenberg Block** as type
+4. Choose a style (Modern, Minimalist, etc.)
+5. Click **Generate with AI**
+6. HTML/CSS code is generated automatically
+7. Copy-paste into a Custom HTML block
+
+### Generate a Complete Page
+
+1. Go to the **Generator** tab
+2. Describe your page (e.g., "Landing page for a mobile app")
+3. Select **Complete Page**
+4. Generate and use the code
+
+### Example Prompts
+
+#### Hero Section
+```
+Create a modern hero section with a catchy title "Revolutionize Your Business",
+a subtitle, and a purple CTA button. Minimalist design with gradient background.
+```
+
+#### Pricing Table
+```
+Create a pricing table with 3 columns (Starter, Pro, Enterprise),
+including prices, feature lists, and action buttons. Professional style.
+```
+
+#### Contact Form
+```
+Create an elegant contact form with name, email, subject, and message fields.
+Include visual validation and submit button with hover effect.
+```
+
+#### Feature Grid
+```
+Create a 3-column feature grid with icons, titles, and descriptions.
+Features: Speed, Security, Support. Modern card design with shadows.
+```
+
+#### Complete Landing Page
+```
+Create a landing page for a SaaS product with:
+- Hero section with product screenshot
+- 3 key features with icons
+- Pricing table (Free, Pro, Enterprise)
+- Testimonials section
+- CTA footer
+```
+
+---
+
+## 📁 File Structure
 
 ```
 neuroblock/
 │
-├── neuroblock.php                      # Fichier principal
+├── neuroblock.php                      # Main file
 ├── README.md                           # Documentation
+├── LICENSE                             # GPL v2 license
+├── icon.svg                            # Plugin icon
+├── build.sh                            # Build script
+├── verify-files.sh                     # Verification script
 │
 ├── assets/
 │   ├── css/
-│   │   ├── neuroblock-admin.css       # Styles admin
-│   │   ├── neuroblock-blocks.css      # Styles blocs frontend
-│   │   └── neuroblock-blocks-editor.css # Styles éditeur Gutenberg
+│   │   ├── neuroblock-admin.css       # Admin styles
+│   │   ├── neuroblock-blocks.css      # Frontend block styles
+│   │   └── neuroblock-blocks-editor.css # Gutenberg editor styles
 │   │
 │   └── js/
-│       ├── neuroblock-admin.js        # Scripts admin
-│       └── neuroblock-blocks.js       # Scripts blocs Gutenberg
+│       ├── neuroblock-admin.js        # Admin JavaScript
+│       └── neuroblock-blocks.js       # Gutenberg blocks JavaScript
 │
-└── includes/
-    ├── class-neuroblock-admin.php     # Interface admin
-    ├── class-neuroblock-api.php       # Gestion API IA
-    ├── class-neuroblock-blocks.php    # Blocs Gutenberg
-    └── class-neuroblock-security.php  # Sécurité et chiffrement
+├── includes/
+│   ├── class-neuroblock-admin.php     # Admin interface
+│   ├── class-neuroblock-api.php       # API handler
+│   ├── class-neuroblock-blocks.php    # Gutenberg blocks
+│   ├── class-neuroblock-security.php  # Security & encryption
+│   ├── admin-page-template.php        # Admin page template
+│   │
+│   └── elementor/
+│       └── class-neuroblock-elementor-widget.php  # Elementor widget
+│
+└── languages/
+    ├── neuroblock.pot                 # Translation template
+    ├── neuroblock-fr_FR.po            # French translation
+    └── neuroblock-fr_FR.mo            # Compiled French translation
 ```
 
 ---
 
-## 🔒 Sécurité
+## 🔒 Security
 
-NeuroBlock prend la sécurité au sérieux :
+NeuroBlock takes security seriously:
 
-- ✅ Chiffrement AES-256 des clés API
-- ✅ Utilisation des salts WordPress
-- ✅ Vérification des nonces pour toutes les requêtes AJAX
-- ✅ Sanitisation de toutes les entrées utilisateur
-- ✅ Aucune donnée stockée sur des serveurs tiers
-- ✅ Code conforme aux standards WordPress
+- ✅ AES-256 encryption of API keys
+- ✅ Uses WordPress salts
+- ✅ Nonce verification for all AJAX requests
+- ✅ Sanitization of all user inputs
+- ✅ No data stored on third-party servers
+- ✅ Code compliant with WordPress standards
 
 ---
 
-## 🛠️ Développement
+## 🛠️ Development
 
-### Prérequis
+### Prerequisites
 
 - PHP 7.4+
 - WordPress 5.8+
-- Extension `openssl` PHP activée
+- `openssl` PHP extension enabled
 
-### Hooks disponibles
+### Building the Plugin
+
+```bash
+# Verify all files are present
+./verify-files.sh
+
+# Build the plugin (compile translations + create ZIP)
+./build.sh
+```
+
+The distributable ZIP will be created at: `dist/neuroblock-1.0.0.zip`
+
+### Available Hooks
 
 ```php
-// Filtrer le prompt avant l'appel API
+// Filter prompt before API call
 add_filter('neuroblock_prompt', function($prompt, $type, $style) {
-    return $prompt . "\nUtiliser des couleurs vives.";
+    return $prompt . "\nUse vibrant colors.";
 }, 10, 3);
 
-// Action après génération réussie
+// Action after successful generation
 add_action('neuroblock_content_generated', function($content, $type) {
-    // Votre code ici
+    // Your code here
 }, 10, 2);
 ```
 
 ---
 
-## ❤️ Support et Donations
+## 🎨 Design Styles
 
-NeuroBlock est **gratuit et open source**. Si vous trouvez ce plugin utile, vous pouvez soutenir le développement :
+NeuroBlock offers 6 predefined design styles:
 
-### Cryptomonnaies acceptées
+- **Modern**: Clean lines, gradients, shadows
+- **Minimalist**: Simple, lots of white space
+- **Professional**: Business-oriented, formal
+- **Creative**: Bold, unique, artistic
+- **Elegant**: Refined, sophisticated
+- **Classic**: Traditional, timeless
 
-**Bitcoin (BTC)**
+---
+
+## 💡 Tips for Best Results
+
+### Be Specific
+❌ "Create a button"  
+✅ "Create a blue gradient button with white text and rounded corners"
+
+### Mention Style
+Include style keywords: "modern", "minimalist", "elegant"
+
+### Include Details
+Specify sizes, colors, layouts, and element positions
+
+### Use Examples
+"Like Airbnb's hero section" or "Similar to Stripe's pricing table"
+
+---
+
+## 📊 Performance
+
+### Generation Times
+- Simple block: 5-15 seconds
+- Complex block: 10-20 seconds
+- Complete page: 30-60 seconds
+
+### Cost Estimates (OpenAI)
+- gpt-3.5-turbo: ~$0.002 per block
+- gpt-4: ~$0.03 per block
+
+### Optimization
+- Use smaller models for simple blocks
+- Use larger models for complex pages
+- Be specific in prompts to reduce retries
+
+---
+
+## 🌍 Internationalization
+
+NeuroBlock is fully translatable and comes with:
+- English (default)
+- French (Français)
+
+### Adding a Translation
+
+1. Copy `languages/neuroblock.pot`
+2. Rename to `neuroblock-[locale].po` (e.g., `neuroblock-es_ES.po`)
+3. Translate using Poedit or similar tool
+4. Compile to `.mo` file:
+   ```bash
+   msgfmt neuroblock-es_ES.po -o neuroblock-es_ES.mo
+   ```
+5. Place in `languages/` folder
+
+---
+
+## ❤️ Support & Donations
+
+NeuroBlock is **free and open source**. If you find this plugin useful, you can support development:
+
+### Accepted Cryptocurrencies
+
+**Bitcoin (BTC)** - Recommended
 ```
 bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
 ```
@@ -204,42 +325,139 @@ bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
 
 ---
 
-## 📝 Changelog
+## 🐛 Troubleshooting
 
-### Version 1.0.0 (2025-01-15)
-- 🎉 Lancement initial
-- ✨ Support OpenAI, DeepSeek, Gemini, Ollama
-- 🎨 Interface admin moderne
-- 🔒 Chiffrement des clés API
-- 📦 Blocs Gutenberg
-- 🚀 Générateur de contenu IA
+### Plugin won't activate
+**Solution:** Check PHP version (must be 7.4+) and ensure OpenSSL extension is enabled
+
+### API calls fail
+**Solutions:**
+- Verify API key is correct
+- Check internet connection
+- Ensure provider endpoint is accessible
+- Check WordPress error logs
+
+### SweetAlert doesn't appear
+**Solutions:**
+- Clear browser cache
+- Check browser console for JavaScript errors
+- Ensure jQuery is loaded
+
+### Translations don't work
+**Solutions:**
+- Regenerate .mo file from .po
+- Check file permissions
+- Verify locale matches WordPress setting
+
+### Elementor widget doesn't appear
+**Solutions:**
+- Ensure Elementor is installed and activated
+- Clear Elementor cache
+- Regenerate Elementor CSS
 
 ---
 
-## 🤝 Contribution
+## 📝 Changelog
 
-Les contributions sont les bienvenues ! Pour contribuer :
+### Version 1.0.0 (2025-01-15)
+- 🎉 Initial release
+- ✨ Support for OpenAI, DeepSeek, Gemini, Mistral AI
+- 🎨 Modern admin interface
+- 🔒 API key encryption
+- 📦 Gutenberg blocks
+- 🚀 AI content generator
+- 🌍 English and French translations
 
-1. Forkez le projet
-2. Créez une branche (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add AmazingFeature'`)
-4. Pushez (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the project
+2. Create a branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Coding Standards
+- Follow WordPress Coding Standards
+- Comment your code
+- Test thoroughly before submitting
 
 ---
 
 ## 📄 License
 
-Ce projet est sous licence GPL v2 or later.
+This project is licensed under GPL v2 or later.
+
+See [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🔗 Liens utiles
+## 🔗 Useful Links
 
-- **Site web**: https://starlightproagency.com
+- **Website**: https://starlightproagency.com
 - **Support**: contact@starlightproagency.com
-- **Documentation**: https://starlightproagency.com/neuroblock/docs
+- **Documentation**: See DEPLOYMENT.md for deployment guide
+- **Quick Start**: See QUICK-START.md for 5-minute setup
+- **Testing**: See TEST-CHECKLIST.md for complete testing
 
 ---
 
-Développé avec ❤️ par **Papyrus** - Starlight Pro Agency
+## 🙏 Acknowledgments
+
+- WordPress community for excellent documentation
+- OpenAI, DeepSeek, Google, and Mistral for AI APIs
+- SweetAlert2 for beautiful notifications
+- All contributors and supporters
+
+---
+
+## 📱 Screenshots
+
+### Admin Dashboard
+![Admin Dashboard](screenshot-1.png)
+
+### Generator Interface
+![Generator](screenshot-2.png)
+
+### Generated Block Example
+![Generated Block](screenshot-3.png)
+
+---
+
+## 🎓 FAQ
+
+### Is NeuroBlock really free?
+Yes! NeuroBlock itself is 100% free and open source. You only pay for your AI API usage (directly to the provider).
+
+### Which AI provider is best?
+- **OpenAI**: Best quality, higher cost
+- **DeepSeek**: Great balance of quality and cost
+- **Mistral**: European alternative, good quality
+- **Gemini**: Google's offering, free tier available
+
+### Can I use NeuroBlock without an API key?
+No, you need an API key from at least one supported provider.
+
+### Is my API key safe?
+Yes! Your API key is encrypted using AES-256 with WordPress salts and stored securely in your database.
+
+### Can I generate pages in other languages?
+Yes! Just write your prompt in the desired language, and the AI will generate content in that language.
+
+### Does NeuroBlock work with page builders?
+Yes! NeuroBlock supports both Gutenberg (default WordPress editor) and Elementor.
+
+### Can I edit generated content?
+Absolutely! Generated content is standard HTML/CSS that you can edit as needed.
+
+### Is there a limit to generations?
+No limits from NeuroBlock. Your only limit is your AI provider's API quota.
+
+---
+
+Developed with ❤️ by **Papyrus** - Starlight Pro Agency
+
+**Transform your WordPress content creation with AI!** 🚀

@@ -270,7 +270,7 @@ Now that you're set up:
 
 ## 📞 Need Help?
 
-- **Email:** contact@starlightproagency.com
+- **Email:** info@starlightproagency.com
 - **Website:** https://starlightproagency.com
 - **Docs:** Full documentation in README.md
 - **Testing:** Complete checklist in TEST-CHECKLIST.md

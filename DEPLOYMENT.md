@@ -259,7 +259,7 @@ Before deploying to production:
 ## 📞 Support
 
 For issues or questions:
-- Email: contact@starlightproagency.com
+- Email: info@starlightproagency.com
 - Website: https://starlightproagency.com
 
 ## 📄 License
