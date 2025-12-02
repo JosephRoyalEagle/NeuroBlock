@@ -133,7 +133,8 @@ if (!defined('ABSPATH')) exit;
             
             <!-- Blocks Tab -->
             <div id="tab-blocks" class="neuroblock-tab-panel" style="display:none;">
-                <div class="neuroblock-grid neuroblock-grid-2">
+                <!-- Quick Create Cards -->
+                <div class="neuroblock-grid neuroblock-grid-2" style="margin-bottom: 40px;">
                     <div class="neuroblock-card">
                         <svg class="neuroblock-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
@@ -152,20 +153,89 @@ if (!defined('ABSPATH')) exit;
                     </div>
                 </div>
                 
+                <!-- Recent Generated Blocks (from localStorage) -->
+                <div class="neuroblock-recent-list" style="margin-bottom: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 class="neuroblock-recent-title"><?php _e('Recent Blocks & Widgets', 'neuroblock'); ?></h3>
+                        <button type="button" id="clear-blocks-history" class="neuroblock-btn neuroblock-btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                            <?php _e('Clear History', 'neuroblock'); ?>
+                        </button>
+                    </div>
+                    <div id="recent-blocks-container">
+                        <div class="neuroblock-alert neuroblock-alert-info">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <div>
+                                <p style="margin: 0;"><?php _e('Blocks and widgets you generate will appear here. They are stored locally in your browser.', 'neuroblock'); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Generated Pages (from WordPress database) -->
                 <?php if (!empty($recent_pages)): ?>
-                <div class="neuroblock-recent-list" style="margin-top: 24px;">
-                    <h3 class="neuroblock-recent-title"><?php _e('Recent Blocks', 'neuroblock'); ?></h3>
+                <div class="neuroblock-recent-list">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 class="neuroblock-recent-title"><?php _e('Recent Complete Pages', 'neuroblock'); ?></h3>
+                        <span style="color: #64748b; font-size: 0.85rem;">
+                            <?php printf(__('%d pages generated', 'neuroblock'), count($recent_pages)); ?>
+                        </span>
+                    </div>
                     <?php foreach ($recent_pages as $page): ?>
                     <div class="neuroblock-recent-item">
                         <div class="neuroblock-recent-info">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
                             </svg>
-                            <span class="neuroblock-recent-name"><?php echo esc_html($page->post_title); ?></span>
+                            <div>
+                                <span class="neuroblock-recent-name"><?php echo esc_html($page->post_title); ?></span>
+                                <span style="display: block; font-size: 0.8rem; color: #94a3b8; margin-top: 2px;">
+                                    <?php 
+                                    $page_type = get_post_meta($page->ID, '_elementor_edit_mode', true) === 'builder' 
+                                        ? __('Elementor Page', 'neuroblock') 
+                                        : __('Gutenberg Page', 'neuroblock');
+                                    echo $page_type;
+                                    ?>
+                                </span>
+                            </div>
                         </div>
-                        <span class="neuroblock-recent-time"><?php echo human_time_diff(strtotime($page->post_date), current_time('timestamp')) . ' ' . __('ago', 'neuroblock'); ?></span>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="neuroblock-recent-time">
+                                <?php echo human_time_diff(strtotime($page->post_date), current_time('timestamp')) . ' ' . __('ago', 'neuroblock'); ?>
+                            </span>
+                            <a href="<?php echo get_edit_post_link($page->ID); ?>" class="neuroblock-btn neuroblock-btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">
+                                <?php _e('Edit', 'neuroblock'); ?>
+                            </a>
+                            <a href="<?php echo get_permalink($page->ID); ?>" target="_blank" class="neuroblock-btn neuroblock-btn-primary" style="padding: 6px 12px; font-size: 0.8rem;">
+                                <?php _e('View', 'neuroblock'); ?>
+                            </a>
+                        </div>
                     </div>
                     <?php endforeach; ?>
+                </div>
+                <?php else: ?>
+                <div class="neuroblock-recent-list">
+                    <h3 class="neuroblock-recent-title"><?php _e('Recent Complete Pages', 'neuroblock'); ?></h3>
+                    <div class="neuroblock-alert neuroblock-alert-info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <div>
+                            <p style="margin: 0;">
+                                <?php _e('No complete pages generated yet. Go to the Generator tab to create your first page!', 'neuroblock'); ?>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <?php endif; ?>
             </div>

@@ -134,7 +134,33 @@ class NeuroBlock_Admin {
                 'viewPage' => __('View Page', 'neuroblock'),
                 'ok' => __('OK', 'neuroblock'),
                 'gutenbergInstructions' => __('1. Go to Posts/Pages → Add New<br>2. Click the "+" button<br>3. Search for "HTML"<br>4. Paste the code in the Custom HTML block', 'neuroblock'),
-                'elementorInstructions' => __('1. Go to Pages → Add New<br>2. Click "Edit with Elementor"<br>3. Add an HTML widget<br>4. Paste the code in the widget', 'neuroblock')
+                'elementorInstructions' => __('1. Go to Pages → Add New<br>2. Click "Edit with Elementor"<br>3. Add an HTML widget<br>4. Paste the code in the widget', 'neuroblock'),
+                
+                'clearHistory' => __('Clear History', 'neuroblock'),
+                'clearHistoryConfirm' => __('Are you sure you want to clear all blocks history? This cannot be undone.', 'neuroblock'),
+                'historyCleared' => __('History cleared successfully', 'neuroblock'),
+                'noBlocksYet' => __('No blocks generated yet. Go to Generator tab to create your first block!', 'neuroblock'),
+                'recentBlocksWidgets' => __('Recent Blocks & Widgets', 'neuroblock'),
+                'recentCompletePages' => __('Recent Complete Pages', 'neuroblock'),
+                'pagesGenerated' => __('%d pages generated', 'neuroblock'),
+                'gutenbergBlock' => __('Gutenberg Block', 'neuroblock'),
+                'elementorWidget' => __('Elementor Widget', 'neuroblock'),
+                'gutenbergPage' => __('Gutenberg Page', 'neuroblock'),
+                'elementorPage' => __('Elementor Page', 'neuroblock'),
+                'view' => __('View', 'neuroblock'),
+                'edit' => __('Edit', 'neuroblock'),
+                'delete' => __('Delete', 'neuroblock'),
+                'deleted' => __('Deleted!', 'neuroblock'),
+                'prompt' => __('Prompt', 'neuroblock'),
+                'style' => __('Style', 'neuroblock'),
+                'copyCode' => __('Copy Code', 'neuroblock'),
+                'close' => __('Close', 'neuroblock'),
+                'justNow' => __('Just now', 'neuroblock'),
+                'minutesAgo' => __('minutes ago', 'neuroblock'),
+                'hoursAgo' => __('hours ago', 'neuroblock'),
+                'daysAgo' => __('days ago', 'neuroblock'),
+                'yes' => __('Yes', 'neuroblock'),
+                'cancel' => __('Cancel', 'neuroblock')
             ]
         ]);
     }
