@@ -259,9 +259,9 @@ if (!defined('ABSPATH')) exit;
                 
                 <div class="neuroblock-crypto-box" style="cursor: pointer;">
                     <div class="neuroblock-crypto-header">
-                        <h3 class="neuroblock-crypto-name">Tether (USDT)</h3>
+                        <h3 class="neuroblock-crypto-name">Tether (TRC20)</h3>
                     </div>
-                    <code class="neuroblock-crypto-address">TCY64QwdZjQV4WEn91EuoBUoZnpzPvCboF</code>
+                    <code class="neuroblock-crypto-address">TTfrG2RDLuZrmbZyCQXRiXemx1QdjtKj7G</code>
                 </div>
                 
                 <div style="text-align: center; margin-top: 24px; color: #64748b;">
