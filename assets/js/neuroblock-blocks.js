@@ -240,6 +240,4 @@ jQuery(document).ready(function($) {
             showConfirmButton: false
         });
     });
-    
-    console.log('NeuroBlock admin loaded successfully');
 });
