@@ -123,26 +123,6 @@ if (!defined('ABSPATH')) exit;
             
             <!-- Blocks Tab -->
             <div id="tab-blocks" class="neuroblock-tab-panel" style="display:none;">
-                <!-- Quick Create Cards -->
-                <div class="neuroblock-grid neuroblock-grid-2" style="margin-bottom: 40px;">
-                    <div class="neuroblock-card">
-                        <svg class="neuroblock-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                        </svg>
-                        <h3 class="neuroblock-card-title"><?php _e('Gutenberg Block', 'neuroblock'); ?></h3>
-                        <p class="neuroblock-card-text"><?php _e('Create a new custom block with AI', 'neuroblock'); ?></p>
-                    </div>
-                    <div class="neuroblock-card">
-                        <svg class="neuroblock-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                        </svg>
-                        <h3 class="neuroblock-card-title"><?php _e('Complete Page', 'neuroblock'); ?></h3>
-                        <p class="neuroblock-card-text"><?php _e('Generate a complete WordPress page', 'neuroblock'); ?></p>
-                    </div>
-                </div>
-                
                 <!-- Recent Generated Blocks (from localStorage) -->
                 <div class="neuroblock-recent-list" style="margin-bottom: 30px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
