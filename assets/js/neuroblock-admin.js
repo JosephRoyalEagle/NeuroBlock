@@ -1,5 +1,8 @@
 jQuery(document).ready(function($) {
     'use strict';
+
+    // Initialize on page load
+    checkProviderApiKeys();
     
     // Tab navigation
     $('.neuroblock-tab').on('click', function() {
@@ -16,17 +19,72 @@ jQuery(document).ready(function($) {
     
     // Provider models mapping
     const providerModels = {
-        openai: ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-turbo'],
-        deepseek: ['deepseek-chat', 'deepseek-coder'],
-        gemini: ['gemini-pro', 'gemini-ultra'],
-        mistral: ['mistral-small', 'mistral-medium', 'mistral-large']
-    };
+        openai: [
+            'gpt-4o-mini'
+        ],
     
-    // Update models when provider changes
+        deepseek: [
+            'deepseek-chat',
+            'deepseek-coder'
+        ],
+    
+        gemini: [
+            'gemini-2.5-flash',
+            'gemini-2.5-flash-lite'
+        ],
+    
+        mistral: [
+            'mistral-small',
+        ]
+    };
+
+    // Provider API key status (will be populated on page load)
+    const providerApiKeys = {};
+
+    // Check API key status for each provider
+    function checkProviderApiKeys() {
+        const providers = ['openai', 'deepseek', 'gemini', 'mistral'];
+        providers.forEach(function(provider) {
+            $.post(neuroblock.ajax_url, {
+                action: 'neuroblock_check_api_key',
+                nonce: neuroblock.nonce,
+                provider: provider
+            }, function(response) {
+                if (response.success) {
+                    providerApiKeys[provider] = response.data.has_key;
+                }
+            });
+        });
+    }
+
+    // Update models when provider changes in settings
     $('#nb-provider').on('change', function() {
         const provider = $(this).val();
+        updateApiKeyField(provider);
+    });
+
+    // Update API key field to show masked key if exists
+    function updateApiKeyField(provider) {
+        $.post(neuroblock.ajax_url, {
+            action: 'neuroblock_get_masked_key',
+            nonce: neuroblock.nonce,
+            provider: provider
+        }, function(response) {
+            if (response.success && response.data.masked_key) {
+                $('#nb-api-key').val(response.data.masked_key);
+                $('#nb-api-key').next('.neuroblock-helper-text').text(neuroblock.strings.apiKeyConfigured);
+            } else {
+                $('#nb-api-key').val('');
+                $('#nb-api-key').next('.neuroblock-helper-text').text(neuroblock.strings.apiKeyEncrypted);
+            }
+        });
+    }
+
+    // Update models when provider changes in generator
+    $('#nb-gen-provider').on('change', function() {
+        const provider = $(this).val();
         const models = providerModels[provider] || [];
-        const $modelSelect = $('#nb-model');
+        const $modelSelect = $('#nb-gen-model');
         
         $modelSelect.empty();
         models.forEach(function(model) {
@@ -49,12 +107,14 @@ jQuery(document).ready(function($) {
             '<span class="neuroblock-spinner"></span> ' + neuroblock.strings.saving
         );
         
+        const apiKey = $form.find('input[name="api_key"]').val();
+        
+        // Don't send API key if it's the masked value
         const formData = {
             action: 'neuroblock_save_settings',
             nonce: neuroblock.nonce,
             provider: $form.find('select[name="provider"]').val(),
-            api_key: $form.find('input[name="api_key"]').val(),
-            model: $form.find('select[name="model"]').val()
+            api_key: apiKey === '••••••••••••••••••••' ? '' : apiKey
         };
         
         $.post(neuroblock.ajax_url, formData, function(response) {
@@ -66,8 +126,11 @@ jQuery(document).ready(function($) {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                // Clear API key field for security
-                $form.find('input[name="api_key"]').val('');
+                // Update to show masked key
+                if (apiKey && apiKey !== '••••••••••••••••••••') {
+                    $form.find('input[name="api_key"]').val('••••••••••••••••••••');
+                    $form.find('input[name="api_key"]').next('.neuroblock-helper-text').text(neuroblock.strings.apiKeyConfigured);
+                }
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -97,6 +160,8 @@ jQuery(document).ready(function($) {
         
         const prompt = $form.find('textarea[name="prompt"]').val().trim();
         const type = $form.find('select[name="type"]').val();
+        const provider = $form.find('select[name="provider"]').val();
+        const model = $form.find('select[name="model"]').val();
         
         if (!prompt) {
             Swal.fire({
@@ -139,13 +204,15 @@ jQuery(document).ready(function($) {
         });
         
         $output.hide();
-        
+
         const formData = {
             action: 'neuroblock_generate',
             nonce: neuroblock.nonce,
             prompt: prompt,
             type: type,
-            style: $form.find('select[name="style"]').val()
+            style: $form.find('select[name="style"]').val(),
+            provider: provider,
+            model: model
         };
         
         $.post(neuroblock.ajax_url, formData, function(response) {

@@ -20,7 +20,7 @@ class NeuroBlock_API {
         'openai' => [
             'name' => 'OpenAI',
             'endpoint' => 'https://api.openai.com/v1/chat/completions',
-            'models' => ['gpt-4', 'gpt-3.5-turbo', 'gpt-4-turbo']
+            'models' => ['gpt-4o-mini']
         ],
         'deepseek' => [
             'name' => 'DeepSeek',
@@ -30,12 +30,12 @@ class NeuroBlock_API {
         'gemini' => [
             'name' => 'Google Gemini',
             'endpoint' => 'https://generativelanguage.googleapis.com/v1/models',
-            'models' => ['gemini-pro', 'gemini-ultra']
+            'models' => ['gemini-2.5-flash', 'gemini-2.5-flash-lite']
         ],
         'mistral' => [
             'name' => 'Mistral AI',
             'endpoint' => 'https://api.mistral.ai/v1/chat/completions',
-            'models' => ['mistral-small', 'mistral-medium', 'mistral-large']
+            'models' => ['mistral-small']
         ]
     ];
     
@@ -52,14 +52,15 @@ class NeuroBlock_API {
      * Call AI API based on configured provider
      * 
      * @param string $prompt User prompt to send to AI
-     * @param array $options Optional parameters (max_tokens, temperature, etc.)
+     * @param array $options Optional parameters (provider, model, max_tokens, temperature, etc.)
      * @return string|WP_Error Generated content or error
      */
     public function call_ai($prompt, $options = []) {
-        $provider = get_option('neuroblock_api_provider', 'openai');
-        $encrypted_key = get_option('neuroblock_api_key', '');
+        $provider = $options['provider'] ?? get_option('neuroblock_api_provider', 'openai');
+        $model = $options['model'] ?? '';
+        
+        $encrypted_key = get_option('neuroblock_api_key_' . $provider, '');
         $api_key = NeuroBlock_Security::decrypt_api_key($encrypted_key);
-        $model = get_option('neuroblock_model', 'gpt-4');
         
         if (empty($api_key)) {
             return new WP_Error('no_api_key', __('API key not configured', 'neuroblock'));
@@ -68,6 +69,11 @@ class NeuroBlock_API {
         $provider_config = $this->api_providers[$provider] ?? null;
         if (!$provider_config) {
             return new WP_Error('invalid_provider', __('Invalid API provider', 'neuroblock'));
+        }
+        
+        // Use first model if not specified
+        if (empty($model)) {
+            $model = $provider_config['models'][0];
         }
         
         // Build request based on provider

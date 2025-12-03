@@ -55,7 +55,7 @@ function neuroblock_activate() {
     // Create default options
     add_option('neuroblock_api_provider', 'openai');
     add_option('neuroblock_api_key', '');
-    add_option('neuroblock_model', 'gpt-4');
+    add_option('neuroblock_model', 'gpt-4o-mini');
     add_option('neuroblock_max_tokens', 2000);
     add_option('neuroblock_temperature', 0.7);
     

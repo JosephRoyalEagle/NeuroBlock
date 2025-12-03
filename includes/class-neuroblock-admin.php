@@ -32,6 +32,8 @@ class NeuroBlock_Admin {
         add_action('admin_init', [$this, 'register_settings']);
         add_action('wp_ajax_neuroblock_generate', [$this, 'ajax_generate_content']);
         add_action('wp_ajax_neuroblock_save_settings', [$this, 'ajax_save_settings']);
+        add_action('wp_ajax_neuroblock_check_api_key', [$this, 'ajax_check_api_key']);
+        add_action('wp_ajax_neuroblock_get_masked_key', [$this, 'ajax_get_masked_key']);
     }
     
     /**
@@ -133,6 +135,8 @@ class NeuroBlock_Admin {
                 'contentGenerated' => __('Content generated successfully!', 'neuroblock'),
                 'viewPage' => __('View Page', 'neuroblock'),
                 'ok' => __('OK', 'neuroblock'),
+                'apiKeyConfigured' => __('API key is configured. Enter a new key to update it.', 'neuroblock'),
+                'apiKeyEncrypted' => __('Your API key is encrypted and never shared', 'neuroblock'),
                 'gutenbergInstructions' => __('1. Go to Posts/Pages → Add New<br>2. Click the "+" button<br>3. Search for "HTML"<br>4. Paste the code in the Custom HTML block', 'neuroblock'),
                 'elementorInstructions' => __('1. Go to Pages → Add New<br>2. Click "Edit with Elementor"<br>3. Add an HTML widget<br>4. Paste the code in the widget', 'neuroblock'),
                 
@@ -175,7 +179,7 @@ class NeuroBlock_Admin {
         register_setting('neuroblock_options', 'neuroblock_max_tokens');
         register_setting('neuroblock_options', 'neuroblock_temperature');
     }
-    
+
     /**
      * AJAX: Save settings
      */
@@ -188,16 +192,51 @@ class NeuroBlock_Admin {
         
         $provider = sanitize_text_field($_POST['provider'] ?? '');
         $api_key = sanitize_text_field($_POST['api_key'] ?? '');
-        $model = sanitize_text_field($_POST['model'] ?? '');
         
-        // Encrypt API key for security
-        $encrypted_key = NeuroBlock_Security::encrypt_api_key($api_key);
+        // Only update API key if not masked (means user entered new key)
+        if (!empty($api_key) && $api_key !== '••••••••••••••••••••') {
+            // Encrypt API key for security
+            $encrypted_key = NeuroBlock_Security::encrypt_api_key($api_key);
+            update_option('neuroblock_api_key_' . $provider, $encrypted_key);
+        }
         
         update_option('neuroblock_api_provider', $provider);
-        update_option('neuroblock_api_key', $encrypted_key);
-        update_option('neuroblock_model', $model);
         
         wp_send_json_success(['message' => __('Settings saved successfully', 'neuroblock')]);
+    }
+
+    /**
+     * AJAX: Check if API key exists for provider
+     */
+    public function ajax_check_api_key() {
+        check_ajax_referer('neuroblock_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => __('Permission denied', 'neuroblock')]);
+        }
+        
+        $provider = sanitize_text_field($_POST['provider'] ?? '');
+        $encrypted_key = get_option('neuroblock_api_key_' . $provider, '');
+        
+        wp_send_json_success(['has_key' => !empty($encrypted_key)]);
+    }
+
+    /**
+     * AJAX: Get masked API key for provider
+     */
+    public function ajax_get_masked_key() {
+        check_ajax_referer('neuroblock_nonce', 'nonce');
+        
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => __('Permission denied', 'neuroblock')]);
+        }
+        
+        $provider = sanitize_text_field($_POST['provider'] ?? '');
+        $encrypted_key = get_option('neuroblock_api_key_' . $provider, '');
+        
+        $masked_key = !empty($encrypted_key) ? '••••••••••••••••••••' : '';
+        
+        wp_send_json_success(['masked_key' => $masked_key]);
     }
     
     /**
@@ -213,16 +252,27 @@ class NeuroBlock_Admin {
         $prompt = sanitize_textarea_field($_POST['prompt'] ?? '');
         $type = sanitize_text_field($_POST['type'] ?? 'block');
         $style = sanitize_text_field($_POST['style'] ?? 'modern');
+        $provider = sanitize_text_field($_POST['provider'] ?? get_option('neuroblock_api_provider', 'openai'));
+        $model = sanitize_text_field($_POST['model'] ?? '');
         
         if (empty($prompt)) {
             wp_send_json_error(['message' => __('Prompt is required', 'neuroblock')]);
         }
         
+        // Check if API key exists for selected provider
+        $encrypted_key = get_option('neuroblock_api_key_' . $provider, '');
+        if (empty($encrypted_key)) {
+            wp_send_json_error(['message' => sprintf(__('No API key configured for %s. Please configure it in AI Settings.', 'neuroblock'), $provider)]);
+        }
+        
         // Build enhanced prompt based on type
         $enhanced_prompt = $this->build_prompt($prompt, $type, $style);
         
-        // Call AI API
-        $result = $this->api->call_ai($enhanced_prompt);
+        // Call AI API with specific provider and model
+        $result = $this->api->call_ai($enhanced_prompt, [
+            'provider' => $provider,
+            'model' => $model
+        ]);
         
         if (is_wp_error($result)) {
             wp_send_json_error(['message' => $result->get_error_message()]);
@@ -365,7 +415,11 @@ class NeuroBlock_Admin {
     public function admin_page() {
         $providers = $this->api->get_providers();
         $current_provider = get_option('neuroblock_api_provider', 'openai');
-        $current_model = get_option('neuroblock_model', 'gpt-4');
+        
+        // Check if API key exists and show masked version
+        $encrypted_key = get_option('neuroblock_api_key_' . $current_provider, '');
+        $has_api_key = !empty($encrypted_key);
+        $masked_key = $has_api_key ? '••••••••••••••••••••' : '';
         
         // Get recent generated blocks/pages
         $recent_pages = get_posts([

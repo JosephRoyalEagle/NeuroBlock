@@ -82,7 +82,7 @@ if (!defined('ABSPATH')) exit;
                     </svg>
                     <div>
                         <strong><?php _e('Configure your AI API', 'neuroblock'); ?></strong>
-                        <p><?php _e('Connect your own API to use NeuroBlock for free. Your keys are encrypted and stored securely.', 'neuroblock'); ?></p>
+                        <p><?php _e('Connect your own API to use NeuroBlock for free. Your keys are encrypted and stored securely. Each provider needs its own API key.', 'neuroblock'); ?></p>
                     </div>
                 </div>
                 
@@ -100,24 +100,14 @@ if (!defined('ABSPATH')) exit;
                     
                     <div class="neuroblock-form-group">
                         <label class="neuroblock-label"><?php _e('API Key', 'neuroblock'); ?></label>
-                        <input type="password" name="api_key" class="neuroblock-input" placeholder="sk-..." />
+                        <input type="password" name="api_key" id="nb-api-key" class="neuroblock-input" placeholder="<?php esc_attr_e('Enter your API key...', 'neuroblock'); ?>" value="<?php echo esc_attr($masked_key); ?>" />
                         <span class="neuroblock-helper-text">
-                            <?php _e('Your API key is encrypted and never shared', 'neuroblock'); ?>
+                            <?php if ($has_api_key): ?>
+                                <?php _e('API key is configured. Enter a new key to update it.', 'neuroblock'); ?>
+                            <?php else: ?>
+                                <?php _e('Your API key is encrypted and never shared', 'neuroblock'); ?>
+                            <?php endif; ?>
                         </span>
-                    </div>
-                    
-                    <div class="neuroblock-form-group">
-                        <label class="neuroblock-label"><?php _e('Model', 'neuroblock'); ?></label>
-                        <select name="model" id="nb-model" class="neuroblock-select">
-                            <?php 
-                            $provider_models = $providers[$current_provider]['models'];
-                            foreach ($provider_models as $model): 
-                            ?>
-                                <option value="<?php echo esc_attr($model); ?>" <?php selected($current_model, $model); ?>>
-                                    <?php echo esc_html($model); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
                     </div>
                     
                     <button type="submit" class="neuroblock-btn neuroblock-btn-primary neuroblock-btn-block">
@@ -190,6 +180,32 @@ if (!defined('ABSPATH')) exit;
                     
                     <div class="neuroblock-grid neuroblock-grid-2">
                         <div class="neuroblock-form-group">
+                            <label class="neuroblock-label"><?php _e('AI Provider', 'neuroblock'); ?></label>
+                            <select name="provider" id="nb-gen-provider" class="neuroblock-select">
+                                <?php foreach ($providers as $key => $provider): ?>
+                                    <option value="<?php echo esc_attr($key); ?>" <?php selected($current_provider, $key); ?>>
+                                        <?php echo esc_html($provider['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="neuroblock-form-group">
+                            <label class="neuroblock-label"><?php _e('Model', 'neuroblock'); ?></label>
+                            <select name="model" id="nb-gen-model" class="neuroblock-select">
+                                <?php 
+                                $provider_models = $providers[$current_provider]['models'];
+                                foreach ($provider_models as $model): 
+                                ?>
+                                    <option value="<?php echo esc_attr($model); ?>">
+                                        <?php echo esc_html($model); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="neuroblock-grid neuroblock-grid-2">
+                        <div class="neuroblock-form-group">
                             <label class="neuroblock-label"><?php _e('Content Type', 'neuroblock'); ?></label>
                             <select name="type" class="neuroblock-select">
                                 <option value="block"><?php _e('Gutenberg Block', 'neuroblock'); ?></option>
@@ -228,6 +244,14 @@ if (!defined('ABSPATH')) exit;
                             <strong><?php _e('Content generated successfully!', 'neuroblock'); ?></strong>
                         </div>
                     </div>
+                    <textarea id="generated-code" class="neuroblock-textarea" rows="15" readonly></textarea>
+                    <button type="button" class="neuroblock-btn neuroblock-btn-secondary neuroblock-btn-block neuroblock-copy-code" style="margin-top: 12px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <?php _e('Copy Code', 'neuroblock'); ?>
+                    </button>
                 </div>
             </div>
             
